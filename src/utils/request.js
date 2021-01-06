@@ -4,9 +4,8 @@ import axios from 'axios'
 // 创建一个 axios 实例，说白了就是复制了一个 axios
 // 通过此实例去发请求，把需要的配置配置给这个实例来处理
 const request = axios.create({
-  baseURL: 'http://api-toutiao-web.itheima.net/app/' // 请求的基础路径
+  baseURL: 'http://api-toutiao-web.itheima.net'
 })
-
 // 请求拦截器
 
 // 响应拦截器
