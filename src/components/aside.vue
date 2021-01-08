@@ -10,14 +10,19 @@
     background-color="#002033"
     text-color="#fff"
     active-text-color="#409EFF"
-    router>
+    router
+    :collapse="isCollapse">
+    <!-- collapse 是否水平折叠收起菜单（仅在 mode 为 vertical 时可用）绑定父组件传来的数据 -->
+    <el-menu-item>
+      <img class="logo" src="./logo.png" alt="">
+    </el-menu-item>
     <el-menu-item index="/">
       <i class="el-icon-s-home"></i>
       <span slot="title">首页</span>
     </el-menu-item>
     <el-menu-item index="/article">
-      <i class="el-icon-s-grid"></i>
-      <span slot="title">内容管理</span>
+      <i class="el-icon-document"></i>
+      <span slot="title">文章管理</span>
     </el-menu-item>
     <el-menu-item index="/image">
       <i class="iconfont icontuxiangimages17"></i>
@@ -44,10 +49,18 @@
 <script>
 export default {
   name: 'AppAside',
+  components: {},
+  props: ['is-collapse'], // 声明参数来接收
   data () {
-    return {}
+    return {
+      // isCollapse: true
+    }
   },
+  computed: {},
+  watch: {},
   created () {
+  },
+  mounted () {
   },
   methods: {}
 }
@@ -56,5 +69,15 @@ export default {
 .iconfont {
   margin-right: 6px;
   padding-left: 2px;
+}
+
+// 左则导航栏
+.el-menu {
+  height: 100%;
+}
+
+// logo
+.logo {
+  width: 100px;
 }
 </style>

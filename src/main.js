@@ -8,10 +8,15 @@ import './styles/index.less'
 import ElementUI from 'element-ui'
 // 加载 element 组件库的样式
 import 'element-ui/lib/theme-chalk/index.css'
+// 富文本编辑器
+import { ElementTiptapPlugin } from 'element-tiptap'
 
 // 全局注册 element 组件库
 Vue.use(ElementUI)
-
+// 富文本编辑器
+Vue.use(ElementTiptapPlugin, {
+  lang: 'zh'
+})
 Vue.config.productionTip = false
 
 // 创建 Vue 根实例

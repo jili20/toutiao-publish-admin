@@ -2,16 +2,19 @@
   <!-- 布局组件：左则导航栏 和 顶部 -->
   <el-container class="layout-container">
     <!-- 侧边导航栏 -->
-    <el-aside width="200px">
+    <el-aside width="auto">
       <!-- 3、使用则边栏组件 -->
       <!-- 可大写 <AppAside/>-->
-      <app-aside class="aside-menu"/>
+      <app-aside :is-collapse="isCollapse"/>
     </el-aside>
     <el-container>
       <!-- 顶部导航栏 -->
       <el-header>
         <div>
-          <i class="el-icon-s-fold"></i>
+          <i :class="{
+            'el-icon-s-fold':isCollapse,
+            'el-icon-s-unfold':!isCollapse }"
+             @click="isCollapse = !isCollapse"></i>
           <span class="title">黑马头条后台管理</span>
         </div>
         <el-dropdown>
@@ -21,9 +24,9 @@
             <span>Bing</span>
             <i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>
           </div>
-          <el-dropdown-menu slot="dropdown">
+          <el-dropdown-menu slot="dropdown" @click="onLogout">
             <el-dropdown-item>设置</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item @click.native="onLogout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -44,16 +47,32 @@ export default {
     AppAside
   },
   data () {
-    return {}
+    return {
+      // 侧边菜单栏的展开状态，默认不展开
+      isCollapse: false
+    }
   },
   created () {
   },
   methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
+    // 退出登录
+    onLogout () {
+      this.$confirm('您确定要退出吗？', '退出提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 把用户的登录状态清除
+        window.localStorage.removeItem('user')
+        // 跳转到登录页面
+        this.$router.push('/login')
+        // console.log('onLogout')
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消退出'
+        })
+      })
     }
   }
 }
@@ -68,13 +87,8 @@ export default {
   bottom: 0;
 }
 
-// 左则导航栏
-.el-aside {
-  background-color: black;
-
-  .aside-menu {
-    height: 100%;
-  }
+.toggle-button {
+  cursor: pointer; // 鼠标移上变小手
 }
 
 // 顶部
@@ -85,7 +99,8 @@ export default {
   align-items: center; // 水平居中
   border-bottom: 3px solid #69bd9d;
   background-color: #e5eef5;
-  .title{
+
+  .title {
     padding-left: 15px;
   }
 }

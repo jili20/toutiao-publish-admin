@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     // ⛑ 绑定登录按钮事件
-    // onLogin () {
+    onLogin () {
     //   // 获取表单数据(根据接口要求绑定数据）
     //   const user = this.user
     //   // 表单验证
@@ -61,7 +61,7 @@ export default {
     //   // 处理后端响应结果
     //   // 成功
     //   // 失败
-    // },
+    },
 
     // http://localhost:8081/#/login
     login () {
